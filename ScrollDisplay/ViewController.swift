@@ -8,18 +8,37 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController,ScrollDisplayViewControllerDelegate,UITableViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        let imgNames:[String] = ["1","2","3","4"]
+        let sdVC = ScrollDisplayViewController(names: imgNames)
+        sdVC.delegate = self
+        view.addSubview(sdVC.view)
+        sdVC.view.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(50)
+            make.left.equalTo(30)
+            make.right.equalTo(-30)
+            make.height.equalTo(200)
+        }
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    //MARK: - ScrollDisplayViewControllerDelegate
+    func scrollDisplayViewController(scrollDisplayViewController: ScrollDisplayViewController, currentIndex index: NSInteger) {
+        print("=====\(index)")
+    }
+    func scrollDisplayViewController(scrollDisplayViewController: ScrollDisplayViewController, didSelectedIndex index: NSInteger) {
+        print(index)
+    }
+    
+    
 }
 
